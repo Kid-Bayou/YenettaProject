@@ -1,6 +1,12 @@
 const Joi = require("joi");
-const getProducts = (req, res) => {
-  res.status(200).json({ message: "Get all my Products" });
+
+const asyncHandler = require("express-async-handler")
+
+const Product = require("../model/productModel")
+
+const getProducts = async(req, res) => {
+  const product = await Product.find();
+  res.status(200).json(product);
 };
 
 const createProduct = (req, res) => {
