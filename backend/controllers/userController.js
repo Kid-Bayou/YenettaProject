@@ -28,6 +28,7 @@ const register = async (req, res) => {
       _id: user.id,
       name: user.name,
       email: user.email,
+      token: generateToken(user._id)
     });
   } else {
     res.status(400).json({ error: "User not created" });
@@ -43,6 +44,7 @@ const login = async (req, res) => {
             _id: user.id,
             name: user.name,
             email: user.email,
+            token: generateToken(user._id)
         });
     } else {
         res.status(400).json({ error: "Invalid credential"});
@@ -52,5 +54,11 @@ const login = async (req, res) => {
 const getProfile = (req, res) => {
   res.json({ message: "user Profile" });
 };
+
+const generateToken = (id) => {
+    return jwt.sign({id}, process.env.JWT_SECRET, {
+        expiresIn: "5d"
+    })
+}
 
 module.exports = { register, login, getProfile };
