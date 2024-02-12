@@ -10,15 +10,6 @@ const getProducts = async (req, res) => {
 };
 
 const createProduct = async (req, res) => {
-  const schema = Joi.object({
-    name: Joi.string().required(),
-    description: Joi.string().required(),
-  });
-
-  const { error, value } = schema.validate(req.body);
-  if (error) {
-    res.status(400).json({ errors: error.details.map((err) => err.message) });
-  }
 
   const products = await Product.create({
     name: req.body.name,

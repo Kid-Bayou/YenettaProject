@@ -3,11 +3,9 @@ const productSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "title requried"],
     },
     description: {
       type: String,
-      required: [true, "description required"],
     },
   },
   {
