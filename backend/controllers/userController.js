@@ -4,7 +4,7 @@ const User = require("../model/userModel");
 const asyncHandler = require("express-async-handler");
 
 const register = async (req, res) => {
-  const {name, email, password} = req.body;
+  const {name, email, password, role} = req.body;
   if (!name || !email || !password) {
     res.status(400).json({ error: "Please add all fields" });
   }
@@ -21,6 +21,7 @@ const register = async (req, res) => {
     name,
     email,
     password: hashedPassword,
+    role,
   });
 
   if (user) {
@@ -52,7 +53,7 @@ const login = async (req, res) => {
 };
 
 const getProfile = (req, res) => {
-  res.json({ message: "user Profile" });
+  res.json(req.user);
 };
 
 const generateToken = (id) => {
