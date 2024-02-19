@@ -3,6 +3,8 @@ const productValidator = (req, res, next) => {
     const schema = Joi.object({
         name: Joi.string().required(),
         description: Joi.string().required(),
+        price: Joi.number().required(),
+        stock: Joi.number().required(),
       });
     
       const { error, value } = schema.validate(req.body);

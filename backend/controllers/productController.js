@@ -4,7 +4,7 @@ const asyncHandler = require("express-async-handler");
 
 const User = require("../model/userModel")
 
-const Product = require("../model/userModel");
+const Product = require("../model/productModel");
 
 const getAllProducts = asyncHandler(async(req, res) => {
   const products = await Product.find();
@@ -21,8 +21,11 @@ const createProduct = async (req, res) => {
   const products = await Product.create({
     user: req.user.id,
     name: req.body.name,
+    price: req.body.price,
+    stock: req.body.stock,
     description: req.body.description,
   });
+
   res.status(200).json(products);
 };
 
@@ -32,7 +35,7 @@ const updateProduct = async (req, res) => {
     res.status(400).json({ error: "product not found" });
   }
 
-  const user = await UserActivation.findById(req.user.id)
+  const user = await User.findById(req.user.id)
   if(!user){
     res.status(401).json({error: "User not found"})
   }
@@ -54,7 +57,7 @@ const deleteProduct = async (req, res) => {
     res.status(400).json({error: "todo not found"})
   }
 
-  const user = await UserActivation.findById(req.user.id)
+  const user = await User.findById(req.user.id)
   if(!user){
     res.status(401).json({error: "User not found"})
   }
